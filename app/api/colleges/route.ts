@@ -1,16 +1,7 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const colleges = await prisma.college.findMany();
-    return NextResponse.json(colleges);
-  } catch (error) {
-    console.error("Database connection failed, using mock data:", error);
-    
-    // इमेज लिंक्स के साथ सरकारी और मेडिकल कॉलेजों का परफेक्ट डेटा
     const backupColleges = [
       { 
         id: "1", 
@@ -20,7 +11,8 @@ export async function GET() {
         rating: 4.9,
         placement: "₹18,00,000/year",
         type: "Government / Medical",
-        image: "https://unsplash.com" // AIIMS / Medical Concept Image
+        image: "https://unsplash.com",
+        imageUrl: "https://unsplash.com"
       },
       { 
         id: "2", 
@@ -30,7 +22,8 @@ export async function GET() {
         rating: 4.8,
         placement: "₹25,00,000/year",
         type: "Government / Engineering",
-        image: "https://unsplash.com" // University/Engineering Main Campus
+        image: "https://unsplash.com",
+        imageUrl: "https://unsplash.com"
       },
       { 
         id: "3", 
@@ -40,7 +33,8 @@ export async function GET() {
         rating: 4.7,
         placement: "₹15,00,000/year",
         type: "Government / Medical",
-        image: "https://unsplash.com" // Medical College/Campus Style Image
+        image: "https://unsplash.com",
+        imageUrl: "https://unsplash.com"
       },
       { 
         id: "4", 
@@ -50,10 +44,14 @@ export async function GET() {
         rating: 4.5,
         placement: "₹18,50,000/year",
         type: "Government / Engineering",
-        image: "https://unsplash.com" // Technical University/Campus Building
+        image: "https://unsplash.com",
+        imageUrl: "https://unsplash.com"
       }
     ];
 
     return NextResponse.json(backupColleges);
+  } catch (error) {
+    console.error("API Error:", error);
+    return NextResponse.json([]);
   }
 }
